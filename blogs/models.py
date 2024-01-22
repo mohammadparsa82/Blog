@@ -9,3 +9,7 @@ class Post (models.Model):
     status = models.BooleanField()
     created_date = models.DateTimeField(auto_now_add = True)
     update_date = models.DateTimeField(auto_now = True)
+
+    #show title and id 
+    def __str__(self):
+        return "{} - {} ".format(self.id, self.title)
