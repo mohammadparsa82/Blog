@@ -10,6 +10,7 @@ class Post (models.Model):
     status = models.BooleanField()
     created_date = models.DateTimeField(auto_now_add = True)
     update_date = models.DateTimeField(auto_now = True)
+    image = models.ImageField(upload_to= 'blog/', default='blog/default.jpg')
 
     class Meta:
         ordering = ['-created_date']
