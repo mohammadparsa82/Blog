@@ -12,3 +12,9 @@ def blogs_single(request,pid):
     post = get_object_or_404(posts, id = pid)
     context = {'post':post}
     return render(request,'blogs/blog-single.html', context)
+
+def blogs_category(request,cat_name):
+    posts = Post.objects.filter(status = 1)
+    posts = posts.filter(category__name=cat_name)
+    context = {'posts':posts}
+    return render(request,'blogs/blog-home.html', context)
