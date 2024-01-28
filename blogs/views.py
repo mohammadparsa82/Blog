@@ -6,8 +6,10 @@ def blogs_view(request, **kwargs):
     posts = Post.objects.filter(status = 1)
     if kwargs.get('cat_name') != None:
         posts = posts.filter(category__name=kwargs['cat_name'])
+
     if kwargs.get('author_username') != None:
         posts = posts.filter(author__username=kwargs['author_username'])
+        
     context = {'posts': posts}
     return render(request, 'blogs/blog-home.html', context)
 
@@ -18,9 +20,10 @@ def blogs_single(request,pid):
     return render(request,'blogs/blog-single.html', context)
 
 
-#This part is related to the category that we summarized in the view instead of using this code
-#def blogs_category(request,cat_name):
+def blogs_search(request):
     posts = Post.objects.filter(status = 1)
-    posts = posts.filter(category__name=cat_name)
-    context = {'posts':posts}
-    return render(request,'blogs/blog-home.html', context)
+    if request.method == 'GET':
+        if s:= request.GET.get('s'):
+            posts = posts.filter(content__contains=s)
+    context = {'posts': posts}
+    return render(request, 'blogs/blog-home.html', context)
