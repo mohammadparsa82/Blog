@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'accounts',
     'blogs.apps.BlogsConfig',
     'website.apps.WebsiteConfig',
+    'multi_captcha_admin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,10 +46,10 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'django.contrib.sites',
     'django.contrib.sitemaps',
+    'django_summernote',
     'robots',
     "debug_toolbar",
     "taggit",
-    'django_summernote',
     'captcha',
     
 ]
@@ -95,6 +96,11 @@ SUMMERNOTE_CONFIG = {
             ['view', ['fullscreen', 'codeview', 'help']],
         ],
     }
+}
+
+# captcha admin settings
+MULTI_CAPTCHA_ADMIN = {
+    'engine': 'simple-captcha',
 }
 
 MIDDLEWARE = [
