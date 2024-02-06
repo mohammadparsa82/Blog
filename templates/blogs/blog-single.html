@@ -46,7 +46,7 @@
 									class="lnr lnr-calendar-full"></span></p>
 							<p class="view col-lg-12 col-md-12 col-6"><a href="#">{{post.counted_views}} Views</a> <span
 									class="lnr lnr-eye"></span></p>
-							<p class="comments col-lg-12 col-md-12 col-6"><a href="#">06 Comments</a> <span
+							<p class="comments col-lg-12 col-md-12 col-6"><a href="#">{% comments_count post.id %} Comments</a> <span
 									class="lnr lnr-bubble"></span></p>
 							<ul class="social-links col-lg-12 col-md-12 col-6">
 								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -99,9 +99,10 @@
 				</div>
 				
 				<div class="comments-area">
-					<h4>05 Comments</h4>
-					{% for comment in comments %}
+					<h4>{% comments_count post.id %} Comments</h4>
 					<div class="comment-list">
+					{% for comment in comments %}
+					
 						<div class="single-comment justify-content-between d-flex">
 							<div class="user justify-content-between d-flex">
 
@@ -116,6 +117,8 @@
 							
 						</div>
 					</div>
+						{% empty %}
+						<P> No comment here </P>
 					{% endfor %}
 							
 						</div>
