@@ -69,6 +69,23 @@
 						</div>
 					{% endfor %}
 				{% endif %}
+				{% if form.errors %}
+					<div class="alert alert-error">
+						<h4>please fix the fllowing errors</h4>
+						<ul>
+							{% for filed in form %}
+								{% if filed.errors %}
+									{% for error in filed.errors %}
+										<li><a href="#id_{{ filed_name }}" class="error">{{ error|escape }}</a></li>
+									{% endfor %}
+								{% endif %}
+							{% endfor %}
+							</ul>
+							{% if form.non_field_errors %}
+								{{ form.non_field_errors }}
+							{% endif %}
+					</div>
+					{% endif %}
 				<form class="form-area contact-form text-right" action="{% url 'website:contact' %}" method="post">
 					
 					{% csrf_token %}
