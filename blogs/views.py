@@ -3,8 +3,10 @@ from blogs.models import Post ,comment
 from django.core.paginator import Paginator ,EmptyPage ,PageNotAnInteger
 from blogs.forms import CommentForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def blogs_view(request, **kwargs):
     posts = Post.objects.filter(status = 1)
     if kwargs.get('cat_name') != None:
