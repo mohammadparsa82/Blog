@@ -4,6 +4,7 @@ from django.urls import reverse
 from taggit.managers import TaggableManager
 
 
+
 class Category(models.Model):
     name = models.CharField(max_length= 150)
 
@@ -23,6 +24,7 @@ class Post (models.Model):
     update_date = models.DateTimeField(auto_now = True)
     image = models.ImageField(upload_to= 'blog/', default='blog/default.jpg')
     category = models.ManyToManyField(Category)
+    login_require =models.BooleanField(default=False)
     class Meta:
         ordering = ['-created_date']
     #show title and id 
@@ -41,6 +43,7 @@ class comment(models.Model):
     approved = models.BooleanField(default = False)
     created_date = models.DateTimeField(auto_now_add = True)
     updated_date = models.DateTimeField(auto_now = True)
+    
     class Meta:
         ordering = ['-created_date']
     def __str__(self):
