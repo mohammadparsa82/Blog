@@ -1,12 +1,14 @@
-from django.shortcuts import render , get_object_or_404
+from django.shortcuts import render , get_object_or_404 ,redirect
 from blogs.models import Post ,comment
 from django.core.paginator import Paginator ,EmptyPage ,PageNotAnInteger
 from blogs.forms import CommentForm
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+#from django.contrib.auth.decorators import login_required
 
 
-@login_required
+#@login_required
 def blogs_view(request, **kwargs):
     posts = Post.objects.filter(status = 1)
     if kwargs.get('cat_name') != None:
@@ -40,10 +42,15 @@ def blogs_single(request,pid):
    
     posts = Post.objects.filter(status = 1)
     post = get_object_or_404(posts, id = pid)
-    comments = comment.objects.filter(post=post.id,approved=True)
-    form = CommentForm()
-    context = {'post':post,'comments':comments, 'form':form}
-    return render(request,'blogs/blog-single.html', context)
+
+    # This part of def has a problem. When I am in the account, the posts do not open for me and return to the index page. 
+    if not post.login_require:
+        comments = comment.objects.filter(post=post.id,approved=True)
+        form = CommentForm()
+        context = {'post':post,'comments':comments, 'form':form}
+        return render(request,'blogs/blog-single.html', context)
+    else:
+        return HttpResponseRedirect(reverse('accounts:login'))
 
 
 def blogs_search(request):

@@ -2,6 +2,7 @@ from django.shortcuts import render , redirect
 from django.contrib.auth import authenticate, login , logout
 from django.contrib.auth.forms import AuthenticationForm , UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.urls import reverse
 # Create your views here.
 def login_views(request):
@@ -14,19 +15,22 @@ def login_views(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
           login(request,user)
-          return redirect('/')
+          #return redirect('/')
+          return HttpResponseRedirect(reverse('website:index'))
         
       form= AuthenticationForm()
       context = {'form':form}
       return render(request,'accounts/login.html', context)
     else:
-        return redirect('/')
+        #return redirect('/')
+        return HttpResponseRedirect(reverse('website:index'))
       
 
 @login_required
 def logout_views(request):
     logout(request)
-    return redirect('/')
+    #return redirect('/')
+    return HttpResponseRedirect(reverse('website:index'))
    
 
 def signup_views(request):
@@ -41,4 +45,5 @@ def signup_views(request):
         context = {'form':form}
         return render(request,'accounts/signup.html', context)
     else:
-        return redirect('/')
+        #return redirect('/')
+        return HttpResponseRedirect(reverse('website:index'))
