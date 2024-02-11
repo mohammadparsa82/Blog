@@ -42,11 +42,11 @@ def blogs_single(request,pid):
    
     posts = Post.objects.filter(status = 1)
     post = get_object_or_404(posts, id = pid)
-<<<<<<< HEAD
+
 
     # This part of def has a problem. When I am in the account, the posts do not open for me and return to the index page. 
-=======
->>>>>>> a8f6c6bf0eaf5d6ccb43ea4372fe22e024524148
+
+
     if not post.login_require:
         comments = comment.objects.filter(post=post.id,approved=True)
         form = CommentForm()
